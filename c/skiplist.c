@@ -1,5 +1,8 @@
 /**
  * copy from: http://www.cnblogs.com/liuhao/archive/2012/07/26/2610218.html
+ * 
+ * typo lead(15) to: Dereferencing pointer to incomplete type error
+ * no null detect(172): segment fault
  */
 
 #include <stdlib.h>
@@ -9,17 +12,17 @@
 
 typedef struct skiplistNode  {
     double score;
-    struct skplistNode *backward;
+    struct skiplistNode *backward;
     struct skiplistLevel {
 	struct skiplistNode *forward;
     } level [];
-} skiplistNode;
+}skiplistNode;
 
 typedef struct skiplist {
     struct skiplistNode *header, *tail;
     unsigned long length;
     int level;
-} skiplist;
+}skiplist;
 
 skiplistNode *slCreateNode(int level, double score) {
     skiplistNode *sn = malloc(sizeof(*sn) + level * sizeof(struct skiplistLevel));
@@ -116,6 +119,7 @@ void slDeleteNode(skiplist *sl, skiplistNode *x, skiplistNode **update) {
     }
     printf("type err: %d, %d\n", sizeof(*(x->level[0].forward)),
 	   sizeof(x));
+    fflush(stdout);
     if (x->level[0].forward) {
 	x->level[0].forward = x->backward;
     } else {
@@ -165,7 +169,7 @@ int slSearch(skiplist *sl, double score)
 	printf("Found: %d\n", (int)node->score);
 	return 1;
     } else {
-	printf("%d not found\n", (int)node->score);
+	printf("%d not found\n", score);
 	return 0;
     }
 }

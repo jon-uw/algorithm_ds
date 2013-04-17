@@ -1,0 +1,27 @@
+
+skiplist.c,785
+#define SKIPLIST_MAX_LEVEL 8,125
+typedef struct skiplistNode 10,155
+    double score;11,186
+    struct skplistNode *backward;backward12,204
+    struct skiplistLevel 13,238
+	struct skiplistNode *forward;forward14,265
+    } level 15,296
+} skiplistNode;16,312
+typedef struct skiplist 18,329
+    struct skiplistNode *header,header19,355
+    struct skiplistNode *header, *tail;tail19,355
+    unsigned long length;20,395
+    int level;21,421
+} skiplist;22,436
+skiplistNode *slCreateNode(slCreateNode24,449
+skiplist *slCreate(slCreate30,627
+void slFreeNode(47,971
+void slFree(52,1024
+int slRandomLevel(64,1243
+skiplistNode *slInsert(slInsert72,1428
+void slDeleteNode(112,2397
+int slDelete(133,2958
+int slSearch(154,3433
+void slPrint(176,3918
+int main(192,4221
